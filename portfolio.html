@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Arielyn Mika Dakeh | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#f9fafb;--surface:#ffffff;--primary:#0ea5e9;--primary-dark:#0284c7;
+    --accent:#06b6d4;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;
+    --card:#ffffff;--glow:rgba(14,165,233,0.15);
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;z-index:100;backdrop-filter:blur(12px);background:rgba(249,250,251,0.85);border-bottom:1px solid var(--border);padding:0 2rem}
+  .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;color:var(--primary);letter-spacing:-0.5px}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{text-decoration:none;color:var(--muted);font-size:.875rem;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:var(--primary)}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg canvas{position:absolute;inset:0;width:100%;height:100%}
+  .hero-content{position:relative;z-index:1;max-width:700px;text-align:center}
+  .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);color:var(--primary);font-size:.75rem;font-weight:600;padding:.35rem .85rem;border-radius:999px;margin-bottom:1.5rem;letter-spacing:.5px;text-transform:uppercase}
+  .hero-badge span{width:6px;height:6px;background:var(--primary);border-radius:50%;animation:pulse 1.5s infinite}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;line-height:1.1;letter-spacing:-1px;margin-bottom:1rem}
+  h1 .highlight{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero-sub{font-size:1.05rem;color:var(--muted);line-height:1.7;max-width:560px;margin:0 auto 2rem}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:2.5rem}
+  .tag{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:.3rem .85rem;font-size:.78rem;font-weight:500;color:var(--muted);transition:all .2s}
+  .tag:hover{border-color:var(--primary);color:var(--primary);background:rgba(14,165,233,.05)}
+  .cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border-radius:10px;font-size:.9rem;font-weight:600;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+  .btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 20px rgba(14,165,233,.3)}
+  .btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 6px 24px rgba(14,165,233,.4)}
+  .btn-outline{background:transparent;color:var(--primary);border:1.5px solid var(--primary)}
+  .btn-outline:hover{background:rgba(14,165,233,.08);transform:translateY(-2px)}
+
+  /* SECTIONS */
+  section{padding:5rem 2rem}
+  .container{max-width:1100px;margin:0 auto}
+  .section-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--primary);margin-bottom:.5rem}
+  .section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;letter-spacing:-.5px;margin-bottom:1rem}
+  .section-desc{color:var(--muted);font-size:.95rem;line-height:1.7;max-width:600px}
+  .divider{width:40px;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:2px;margin-bottom:1.5rem}
+
+  /* ABOUT */
+  #about{background:var(--surface)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .about-text p{color:var(--muted);line-height:1.8;font-size:.95rem;margin-bottom:1rem}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+  .stat-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center;transition:all .2s}
+  .stat-card:hover{border-color:var(--primary);box-shadow:0 4px 20px var(--glow)}
+  .stat-num{font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:var(--primary)}
+  .stat-lbl{font-size:.72rem;color:var(--muted);margin-top:.25rem;font-weight:500}
+  .about-visual{position:relative}
+  .fintech-card{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:20px;padding:2rem;color:#fff;position:relative;overflow:hidden}
+  .fintech-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(14,165,233,.4),transparent);border-radius:50%}
+  .fc-label{font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.5rem}
+  .fc-val{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;color:#fff;margin-bottom:.25rem}
+  .fc-change{font-size:.8rem;color:#34d399;font-weight:600}
+  .fc-chart{margin-top:1.5rem;height:60px;display:flex;align-items:flex-end;gap:4px}
+  .fc-bar{flex:1;background:rgba(14,165,233,.3);border-radius:4px 4px 0 0;transition:background .3s}
+  .fc-bar:hover{background:rgba(14,165,233,.7)}
+  .fc-tag-row{display:flex;gap:.5rem;margin-top:1.5rem;flex-wrap:wrap}
+  .fc-tag{background:rgba(255,255,255,.1);border-radius:6px;padding:.25rem .6rem;font-size:.7rem;color:rgba(255,255,255,.7)}
+  .ticker{margin-top:1rem;font-size:.78rem;color:rgba(255,255,255,.5);font-family:monospace}
+
+  /* SKILLS */
+  #skills{background:var(--bg)}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;margin-top:2.5rem}
+  .skill-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:all .25s;cursor:default;position:relative;overflow:hidden}
+  .skill-card::after{content:'';position:absolute;bottom:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .3s}
+  .skill-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px var(--glow);border-color:var(--primary)}
+  .skill-card:hover::after{width:100%}
+  .skill-icon{font-size:1.8rem;margin-bottom:.75rem}
+  .skill-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.95rem;margin-bottom:.4rem}
+  .skill-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
+  .skill-bar-wrap{margin-top:.75rem;background:var(--border);border-radius:999px;height:4px;overflow:hidden}
+  .skill-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--primary),var(--accent));transform-origin:left;animation:growBar 1.2s ease forwards;transform:scaleX(0)}
+  @keyframes growBar{to{transform:scaleX(1)}}
+
+  /* PROJECTS */
+  #projects{background:var(--surface)}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-top:2.5rem}
+  .project-card{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:all .3s;position:relative;overflow:hidden}
+  .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+  .project-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(14,165,233,.12);border-color:rgba(14,165,233,.3)}
+  .project-card:hover::before{transform:scaleX(1)}
+  .project-year{font-size:.72rem;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:1px;margin-bottom:.75rem}
+  .project-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;line-height:1.35;margin-bottom:.5rem}
+  .project-sub{font-size:.8rem;color:var(--accent);font-weight:500;margin-bottom:.75rem}
+  .project-desc{font-size:.85rem;color:var(--muted);line-height:1.65}
+  .project-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+  .ptag{background:rgba(14,165,233,.08);color:var(--primary);border-radius:6px;padding:.2rem .6rem;font-size:.7rem;font-weight:600;border:1px solid rgba(14,165,233,.2)}
+
+  /* CONTACT */
+  #contact{background:var(--bg)}
+  .contact-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+  .contact-links{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+  .contact-link{display:flex;align-items:center;gap:1rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.4rem;text-decoration:none;color:var(--text);transition:all .25s}
+  .contact-link:hover{border-color:var(--primary);box-shadow:0 4px 20px var(--glow);transform:translateX(4px)}
+  .cl-icon{width:40px;height:40px;border-radius:10px;background:rgba(14,165,233,.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+  .cl-label{font-size:.72rem;color:var(--muted);font-weight:500}
+  .cl-val{font-size:.9rem;font-weight:600;color:var(--primary)}
+  .contact-form{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem}
+  .contact-form h3{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:1.25rem}
+  .form-group{margin-bottom:1rem}
+  .form-group label{font-size:.78rem;font-weight:600;color:var(--muted);display:block;margin-bottom:.4rem}
+  .form-group input,.form-group textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;font-size:.875rem;color:var(--text);font-family:'Inter',sans-serif;transition:border .2s;outline:none;resize:none}
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(14,165,233,.1)}
+  .form-submit{width:100%;padding:.85rem;background:var(--primary);color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .25s}
+  .form-submit:hover{background:var(--primary-dark);transform:translateY(-1px)}
+
+  /* FOOTER */
+  footer{background:#0f172a;color:rgba(255,255,255,.5);text-align:center;padding:2rem;font-size:.8rem}
+  footer span{color:var(--primary)}
+
+  /* ANIMATIONS */
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+  .fade-up{opacity:0;transform:translateY(30px);transition:all .7s ease}
+  .fade-up.visible{opacity:1;transform:translateY(0)}
+
+  @media(max-width:768px){
+    .about-grid,.contact-wrapper{grid-template-columns:1fr}
+    .about-visual{display:none}
+    .stat-row{grid-template-columns:repeat(3,1fr)}
+    .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">AMD.</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn btn-primary" style="padding:.5rem 1.25rem;font-size:.8rem">Get in Touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"><canvas id="heroCanvas"></canvas></div>
+  <div class="hero-content fade-up">
+    <div class="hero-badge"><span></span>Open to Opportunities</div>
+    <h1>Arielyn Mika <span class="highlight">Dakeh</span></h1>
+    <p class="hero-sub">Finance Student & FinTech Enthusiast bridging the gap between financial markets and emerging technology through data-driven insights.</p>
+    <div class="hero-tags">
+      <span class="tag">📈 Financial Analysis</span>
+      <span class="tag">🤖 Generative AI</span>
+      <span class="tag">💹 FinTech</span>
+      <span class="tag">🌐 Machine Learning</span>
+    </div>
+    <div class="cta-row">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-outline">Contact Me</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Finance meets Technology</h2>
+        <div class="divider"></div>
+        <p>I am passionate about finance and business analysis, with a strong interest in data-driven decision-making and financial markets.</p>
+        <p>My enthusiasm for Artificial Intelligence (AI) and emerging technologies drives my continuous learning and growth. I am eager to develop further in finance and technology.</p>
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-num">2</div>
+            <div class="stat-lbl">COIL Projects</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">4</div>
+            <div class="stat-lbl">Core Skills</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">AI</div>
+            <div class="stat-lbl">Focused</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual fade-up">
+        <div class="fintech-card">
+          <div class="fc-label">AUD/USD Live Model</div>
+          <div class="fc-val">0.6482</div>
+          <div class="fc-change">▲ +0.42% Predicted</div>
+          <div class="fc-chart" id="fcChart"></div>
+          <div class="fc-tag-row">
+            <span class="fc-tag">XGBoost</span>
+            <span class="fc-tag">SHAP</span>
+            <span class="fc-tag">Explainable AI</span>
+          </div>
+          <div class="ticker" id="ticker">Loading market data...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label fade-up">Expertise</p>
+    <h2 class="section-title fade-up">Skills & Technologies</h2>
+    <div class="divider fade-up"></div>
+    <div class="skills-grid">
+      <div class="skill-card fade-up">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-name">Generative AI</div>
+        <div class="skill-desc">Leveraging LLMs and generative models for financial analysis and automation workflows.</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Financial Analysis</div>
+        <div class="skill-desc">Bond valuation, FX prediction, and market instruments with quantitative techniques.</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon">🧠</div>
+        <div class="skill-name">Machine Learning</div>
+        <div class="skill-desc">Tree-based models, explainability frameworks (SHAP/LIME), and predictive analytics.</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon">💳</div>
+        <div class="skill-name">Financial Technology</div>
+        <div class="skill-desc">Exploring digital finance solutions, algorithmic trading, and fintech innovation.</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label fade-up">Work</p>
+    <h2 class="section-title fade-up">Projects</h2>
+    <div class="divider fade-up"></div>
+    <div class="projects-grid">
+      <div class="project-card fade-up">
+        <div class="project-year">COIL Project · 2025</div>
+        <div class="project-title">AUD/USD Prediction Using Tree-Based Models: An Explainable AI Approach</div>
+        <div class="project-sub">Foreign Exchange Prediction under Explainable AI Framework</div>
+        <div class="project-desc">Applied tree-based machine learning models to forecast AUD/USD exchange rates, incorporating Explainable AI (XAI) techniques to interpret model decisions and provide transparent insights into FX market drivers.</div>
+        <div class="project-tags">
+          <span class="ptag">XGBoost</span>
+          <span class="ptag">Explainable AI</span>
+          <span class="ptag">FX Prediction</span>
+          <span class="ptag">SHAP</span>
+          <span class="ptag">Python</span>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-year">COIL Project · 2026</div>
+        <div class="project-title">Financial Market and Instruments</div>
+        <div class="project-sub">Bond Valuation (GBP): HSBC Bank PLC 35LS</div>
+        <div class="project-desc">Conducted an in-depth valuation of the HSBC Bank PLC 35LS GBP-denominated bond, applying fixed income analysis methodologies including yield-to-maturity, duration, and sensitivity analysis within real financial markets context.</div>
+        <div class="project-tags">
+          <span class="ptag">Bond Valuation</span>
+          <span class="ptag">Fixed Income</span>
+          <span class="ptag">GBP Markets</span>
+          <span class="ptag">HSBC</span>
+          <span class="ptag">YTM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label fade-up">Contact</p>
+    <h2 class="section-title fade-up">Let's Connect</h2>
+    <div class="divider fade-up"></div>
+    <div class="contact-wrapper">
+      <div class="fade-up">
+        <p class="section-desc">I'm always open to discussing finance, technology, research collaborations, or new opportunities. Feel free to reach out!</p>
+        <div class="contact-links">
+          <a href="mailto:arielynmika@gmail.com" class="contact-link">
+            <div class="cl-icon">✉️</div>
+            <div>
+              <div class="cl-label">Email</div>
+              <div class="cl-val">arielynmika@gmail.com</div>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/arielyn-mika-d-0306-am" target="_blank" class="contact-link">
+            <div class="cl-icon">💼</div>
+            <div>
+              <div class="cl-label">LinkedIn</div>
+              <div class="cl-val">Arielyn Mika Dakeh</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-form fade-up">
+        <h3>Send a Message</h3>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="John Doe"/>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="john@example.com"/>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea rows="4" placeholder="Hi Arielyn, I'd love to connect about..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleSubmit(this)">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Arielyn Mika Dakeh</span> · Finance & FinTech Portfolio</p>
+</footer>
+
+<script>
+// --- CANVAS PARTICLE BG ---
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
+class Particle{
+  constructor(){this.reset()}
+  reset(){
+    this.x=Math.random()*canvas.width;
+    this.y=Math.random()*canvas.height;
+    this.r=Math.random()*1.5+.5;
+    this.vx=(Math.random()-.5)*.3;
+    this.vy=(Math.random()-.5)*.3;
+    this.alpha=Math.random()*.4+.1;
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.x<0||this.x>canvas.width||this.y<0||this.y>canvas.height)this.reset();
+  }
+  draw(){
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(14,165,233,${this.alpha})`;ctx.fill();
+  }
+}
+for(let i=0;i<120;i++)particles.push(new Particle());
+function drawLines(){
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<100){
+        ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);
+        ctx.strokeStyle=`rgba(14,165,233,${.08*(1-dist/100)})`;ctx.lineWidth=.5;ctx.stroke();
+      }
+    }
+  }
+}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{p.update();p.draw()});
+  drawLines();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// --- FINTECH CARD BARS ---
+const heights=[30,45,35,60,50,70,55,80,65,75,90,85];
+const chart=document.getElementById('fcChart');
+heights.forEach(h=>{
+  const b=document.createElement('div');
+  b.className='fc-bar';b.style.height=h+'%';chart.appendChild(b);
+});
+
+// --- TICKER ---
+const tickers=['AUD/USD 0.6482 ▲','GBP/USD 1.2634 ▼','XAU/USD 2312.4 ▲','BTC 68,420 ▲','HSBC 6.42 ▼'];
+let ti=0;
+setInterval(()=>{
+  document.getElementById('ticker').textContent=tickers[ti%tickers.length];ti++;
+},2000);
+
+// --- SCROLL FADE ---
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.15});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+// Hero immediate
+setTimeout(()=>document.querySelector('.hero .fade-up').classList.add('visible'),100);
+
+// --- FORM ---
+function handleSubmit(btn){
+  btn.textContent='✓ Message Sent!';
+  btn.style.background='#10b981';
+  setTimeout(()=>{btn.textContent='Send Message →';btn.style.background=''},3000);
+}
+</script>
+</body>
+</html>
